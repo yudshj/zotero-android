@@ -38,5 +38,14 @@ jobs:
       - name: Download Android dependencies
         run: ./gradlew androidDependencies --no-configuration-cache
 
-      - name: Deploy to Google Play Internal Test Track
-        run: ./gradlew --no-configuration-cache -PpreDexLibs=false publishInternalReleaseBundle --stacktrace
+      - name: Build APK
+        run: ./gradlew assembleRelease --stacktrace
+
+#      - name: Deploy to Google Play Internal Test Track
+#        run: ./gradlew --no-configuration-cache -PpreDexLibs=false publishInternalReleaseBundle --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app
+          path: app/build/outputs/apk/release/*.apk
