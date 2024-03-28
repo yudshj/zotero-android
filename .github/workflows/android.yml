@@ -5,9 +5,6 @@ on:
     # Pattern matched against refs/tags
     branches: [ "master" ]
 
-env:
-  ANDROID_PUBLISHER_CREDENTIALS: ${{secrets.ANDROID_PUBLISHER_CREDENTIALS}}
-
 jobs:
   build:
 
@@ -28,11 +25,11 @@ jobs:
       - name: Writing PSPDFKIT's key into a file to be then picked up by gradle.
         run: echo ${{secrets.PSPDFKIT_KEY}} | sed 's/./& /g' > pspdfkit-key.txt
 
-      - name: Decrypt Keystore
-        run: openssl aes-256-cbc -d -in .github/keystore.cipher -k ${{secrets.SIGNING_KEY}} -md sha256 > zotero.release.keystore
+#      - name: Decrypt Keystore
+#        run: openssl aes-256-cbc -d -in .github/keystore.cipher -k ${{secrets.SIGNING_KEY}} -md sha256 > zotero.release.keystore
 
-      - name: Decrypt Keystore secrets
-        run: openssl aes-256-cbc -d -in .github/keystore-secrets.cipher -k ${{secrets.SIGNING_KEY}} -md sha256 > keystore-secrets.txt
+#      - name: Decrypt Keystore secrets
+#        run: openssl aes-256-cbc -d -in .github/keystore-secrets.cipher -k ${{secrets.SIGNING_KEY}} -md sha256 > keystore-secrets.txt
 
       - name: Download Android dependencies
         run: ./gradlew androidDependencies --no-configuration-cache
