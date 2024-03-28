@@ -3,8 +3,7 @@ name: Zotero Android CI
 on:
   push:
     # Pattern matched against refs/tags
-    tags:
-      - '**'  # Push events to every tag including hierarchical tags like v1.0/beta
+    branches: [ "master" ]
 
 env:
   ANDROID_PUBLISHER_CREDENTIALS: ${{secrets.ANDROID_PUBLISHER_CREDENTIALS}}
